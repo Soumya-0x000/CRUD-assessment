@@ -1,0 +1,20 @@
+.MuiDataGrid-columnHeaders{
+    width: 100%;
+    background-color: rgb(195, 255, 255);
+    color: rgb(0, 62, 116);
+    font-size: 18px;
+}
+
+.MuiDataGrid-root{
+    width: 77rem;
+    height: 10rem;
+}
+
+.MuiDataGrid-columnHeaderTitleContainer{
+    width: 20rem;
+}
+
+.MuiDialogContent-root{
+    width: 32rem;
+
+}
