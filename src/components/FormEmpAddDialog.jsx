@@ -27,7 +27,7 @@ const FormEmpAddDialog = () => {
         const formJson = Object.fromEntries(formData.entries());
         const id = uuidv4();
         const {name, email, address, phone} = formJson;
-        if(id && name.trim().length > 5 && email.includes('@') && email.trim().length > 5  && address.trim().length > 5 && phone.trim().length > 5 && !isNaN(phone)){
+        if(id && name.trim().length > 5 && email.includes('@') && email.trim().length > 5  && address && phone.trim().length > 5 && !isNaN(phone)){
             dispatch(addEmployee({id, name, email, address, phone}));
             handleClose();
         } else {

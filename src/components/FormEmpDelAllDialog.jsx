@@ -23,7 +23,6 @@ const FormEmpDelAllDialog = () => {
     };
     
     const handleDeleteAllEntry = () => {
-        console.log(delIds)
         if (delIds.length >= 1) {
             dispatch(delEmpInBundle(delIds))
             setOpen(false);
@@ -34,7 +33,7 @@ const FormEmpDelAllDialog = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <button 
             className=' px-3 py-1 flex items-center gap-x-2 bg-red-600 active:scale-105 transition-all rounded-md'
             onClick={handleClickOpen}>
@@ -44,17 +43,7 @@ const FormEmpDelAllDialog = () => {
 
             <Dialog
             open={open}
-            onClose={handleClose}
-            PaperProps={{
-            component: 'form',
-            onSubmit: (event) => {
-                event.preventDefault();
-                const formData = new FormData(event.currentTarget);
-                const formJson = Object.fromEntries(formData.entries());
-                const email = formJson.email;
-                handleClose();
-            },
-            }}>
+            onClose={handleClose}>
                 <div className=' flex items-center justify-between'>
                     <DialogTitle>Delete Employee</DialogTitle>
                     <DialogTitle>
@@ -82,7 +71,7 @@ const FormEmpDelAllDialog = () => {
                     </button>
                 </DialogActions>
             </Dialog>
-        </React.Fragment>
+        </>
     );
 }
 

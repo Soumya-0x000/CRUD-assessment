@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MdEdit, MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { editEmployee, setDelId, setEditId } from '../store/employeeSLice.js'
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { RxCross1 } from 'react-icons/rx';
 
 export const columns = [
@@ -13,7 +13,7 @@ export const columns = [
     { 
         field: 'actions', 
         headerName: 'Actions', 
-        width: 110,
+        width:78,
         renderCell: (params) => (
             <ActionButtons id={params.row.id} />
         ) 
@@ -29,7 +29,8 @@ const ActionButtons = ({ id }) => {
         email: "",
         address: "",
         phone: ""
-    })
+    });
+    const [isSureToDel, setIsSureToDel] = useState(false)
     
     const handleEdit = () => {
         const empToEdit = dataToEdit.find(emp => emp.id === id);
@@ -59,7 +60,6 @@ const ActionButtons = ({ id }) => {
     };
 
     const handleSubmit = (event) => {
-        console.log(formData)
         event.preventDefault();
         const {name, email, address, phone} = formData;
         if(id !== '' && name.trim().length > 5 && email.includes('@') && email.trim().length > 5  && address.trim().length > 5 && phone.trim().length > 5 && !isNaN(phone)){
@@ -75,9 +75,9 @@ const ActionButtons = ({ id }) => {
 
     return (
         <>
-            <div className=" flex text-lg gap-x-3 ">
+            <div className=" w-full flex text-lg gap-x-3 ">
                 <MdEdit onClick={handleEdit} className=" cursor-pointer text-yellow-400" />
-                <MdDelete onClick={handleDelete} className=" cursor-pointer text-red-400" />
+                <MdDelete onClick={() => setIsSureToDel(true)} className=" cursor-pointer text-red-400" />
             </div>
 
             <Dialog
@@ -117,6 +117,37 @@ const ActionButtons = ({ id }) => {
                         </button>
                     </DialogActions>
                 </form>
+            </Dialog>
+
+            <Dialog
+            open={isSureToDel}
+            onClose={() => setIsSureToDel(false)}>
+                <div className=' flex items-center justify-between'>
+                    <DialogTitle>Delete Employee</DialogTitle>
+                    <DialogTitle>
+                        <RxCross1 onClick={() => setIsSureToDel(false)} className=' cursor-pointer'/>
+                    </DialogTitle>
+                </div>
+
+                <DialogContent>
+                    <DialogContentText>
+                        <p>Are you sure you want to delete the record?</p>
+                        <p className='text-yellow-400 mt-8 text-lg'>This action can not be undone!</p>
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <button onClick={() => setIsSureToDel(false)}
+                    className='px-4 py-1 text-lg'>
+                        Cancel
+                    </button>
+
+                    <button type="submit" 
+                    className='px-4 py-1 text-lg bg-red-700 text-red-200 rounded-md'
+                    onClick={handleDelete}>
+                        Delete
+                    </button>
+                </DialogActions>
             </Dialog>
         </>
     );
