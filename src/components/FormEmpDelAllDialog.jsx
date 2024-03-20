@@ -23,6 +23,7 @@ const FormEmpDelAllDialog = () => {
     };
     
     const handleDeleteAllEntry = () => {
+        console.log(delIds)
         if (delIds.length >= 1) {
             dispatch(delEmpInBundle(delIds))
             setOpen(false);

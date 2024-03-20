@@ -65,6 +65,7 @@ export const employeeSlice = createSlice({
         delEmpInBundle: function(state, action) {
             const ids = action.payload;
             state.empData = state.empData.filter(employee => !ids.includes(employee.id));
+            state.selectedDelIds = [];
         }
     }
 });
